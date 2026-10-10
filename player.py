@@ -17,6 +17,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shoot_cooldown = 0
+        self.level = 0
 
     def triangle(self) -> list[pygame.Vector2]:
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -58,4 +59,9 @@ class Player(CircleShape):
             unit_vector = pygame.Vector2(0, 1)
             rotated_vector = unit_vector.rotate(self.rotation)
             szot.velocity = rotated_vector * PLAYER_SHOOT_SPEED
-            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
+            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS - (self.level / 10)
+
+    def upgrade(self, score):
+        if score % 1000 == 0:
+            self.level += 1
+            print(f"You level up! Your current level: {self.level}")

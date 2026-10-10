@@ -8,6 +8,7 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_event, log_state
 from player import Player
 from shot import Shot
+import score
 
 
 def main():
@@ -37,11 +38,13 @@ def main():
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
-                print("Game over!")
+                score.gameover_get_score()
                 sys.exit()
             for szot in shots:
                 if asteroid.collides_with(szot):
                     log_event("asteroid_shot")
+                    score.update_score()
+                    player.upgrade(score.get_score())
                     asteroid.split()
                     szot.kill()
         pygame.display.flip()
