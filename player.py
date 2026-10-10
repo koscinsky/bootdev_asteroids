@@ -59,7 +59,7 @@ class Player(CircleShape):
             unit_vector = pygame.Vector2(0, 1)
             rotated_vector = unit_vector.rotate(self.rotation)
             szot.velocity = rotated_vector * PLAYER_SHOOT_SPEED
-            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS - (self.level / 10)
+            self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS - (self.level * 0.05)
 
     def upgrade(self, score):
         if score % 1000 == 0:
